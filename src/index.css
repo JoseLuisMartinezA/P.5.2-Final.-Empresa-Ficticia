@@ -4,7 +4,28 @@
 
 @layer base {
   body {
-    @apply selection:bg-primary-200 selection:text-primary-900;
+    @apply bg-white text-secondary-900 scroll-smooth antialiased selection:bg-primary-100 selection:text-primary-900;
+  }
+
+  /* Typography Hierarchy */
+  h1 {
+    @apply font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-secondary-900;
+  }
+  
+  h2 {
+    @apply font-display text-3xl md:text-4xl font-semibold tracking-tight text-secondary-900;
+  }
+  
+  h3 {
+    @apply font-display text-xl md:text-2xl font-semibold text-secondary-800;
+  }
+  
+  p, body {
+    @apply text-base md:text-lg text-secondary-600 leading-relaxed;
+  }
+  
+  small {
+    @apply text-sm text-secondary-500;
   }
 }
 
@@ -14,10 +35,14 @@
   }
   
   .glass {
-    @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-slate-800/50;
+    @apply bg-white/70 dark:bg-secondary-950/70 backdrop-blur-md border border-white/20 dark:border-secondary-800/50;
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-accent;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-accent-500;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
   }
 }

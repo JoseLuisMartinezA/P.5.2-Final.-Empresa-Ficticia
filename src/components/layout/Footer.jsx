@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer = () => {
@@ -34,10 +35,11 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Legal */}
+                    {/* Documentation & Legal */}
                     <div>
-                        <h4 className="text-white font-semibold mb-6">Legal</h4>
+                        <h4 className="text-white font-semibold mb-6">Recursos & Legal</h4>
                         <ul className="space-y-4 text-sm">
+                            <li><Link to="/styleguide" className="text-primary-400 font-medium hover:text-primary-300 transition-colors">🚀 Sistema de Diseño</Link></li>
                             {['Términos de Servicio', 'Política de Privacidad', 'Cookies', 'Aviso Legal'].map((link) => (
                                 <li key={link}><a href="#" className="hover:text-primary-400 transition-colors">{link}</a></li>
                             ))}

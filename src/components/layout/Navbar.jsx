@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import { NAV_LINKS } from '../../data/mockData';
 import Button from '../ui/Button';
@@ -7,6 +8,7 @@ const Navbar = () => {
     const [isDark, setIsDark] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -26,24 +28,39 @@ const Navbar = () => {
             }`}>
             <div className="container-custom flex items-center justify-between">
                 {/* Logo */}
-                <div className="flex items-center gap-2">
+                <Link to="/" className="flex items-center gap-2">
                     <img src="/isotipo.png" alt="NovaDigital Logo" className="h-10 w-auto" />
                     <span className="text-xl font-bold tracking-tight hidden sm:block">
                         Nova<span className="text-primary-500">Digital</span>
                     </span>
-                </div>
+                </Link>
 
                 {/* Desktop Nav */}
                 <div className="hidden md:flex items-center gap-8">
-                    {NAV_LINKS.map((link) => (
-                        <a
-                            key={link.name}
-                            href={link.href}
-                            className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-                        >
-                            {link.name}
-                        </a>
-                    ))}
+                    {NAV_LINKS.map((link) => {
+                        const isExternal = link.href.startsWith('/');
+                        const isHome = location.pathname === '/';
+
+                        if (!isHome && !isExternal) return null; // Ocultar enlaces de ancla si no estamos en home
+
+                        return isExternal ? (
+                            <Link
+                                key={link.name}
+                                to={link.href}
+                                className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+                            >
+                                {link.name}
+                            </Link>
+                        ) : (
+                            <a
+                                key={link.name}
+                                href={link.href}
+                                className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+                            >
+                                {link.name}
+                            </a>
+                        );
+                    })}
                 </div>
 
                 {/* Actions */}
@@ -74,16 +91,32 @@ const Navbar = () => {
             {isMenuOpen && (
                 <div className="md:hidden absolute top-full left-0 right-0 glass border-t border-slate-200 dark:border-slate-800 animate-in slide-in-from-top duration-300">
                     <div className="container-custom py-6 flex flex-col gap-4">
-                        {NAV_LINKS.map((link) => (
-                            <a
-                                key={link.name}
-                                href={link.href}
-                                className="text-lg font-medium p-2"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                {link.name}
-                            </a>
-                        ))}
+                        {NAV_LINKS.map((link) => {
+                            const isExternal = link.href.startsWith('/');
+                            const isHome = location.pathname === '/';
+
+                            if (!isHome && !isExternal) return null;
+
+                            return isExternal ? (
+                                <Link
+                                    key={link.name}
+                                    to={link.href}
+                                    className="text-lg font-medium p-2"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    {link.name}
+                                </Link>
+                            ) : (
+                                <a
+                                    key={link.name}
+                                    href={link.href}
+                                    className="text-lg font-medium p-2"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    {link.name}
+                                </a>
+                            );
+                        })}
                         <Button className="mt-4 w-full">Empezar</Button>
                     </div>
                 </div>

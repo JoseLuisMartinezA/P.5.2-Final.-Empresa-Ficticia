@@ -8,8 +8,8 @@ const Section = ({
     alternate = false
 }) => {
     const bgStyle = alternate
-        ? 'bg-slate-50 dark:bg-slate-900/50'
-        : 'bg-white dark:bg-slate-950';
+        ? 'bg-secondary-50 dark:bg-secondary-900/40'
+        : 'bg-white dark:bg-secondary-950';
 
     return (
         <section id={id} className={`py-20 md:py-32 ${bgStyle} ${className}`}>
